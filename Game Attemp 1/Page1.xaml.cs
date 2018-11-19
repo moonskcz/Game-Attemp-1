@@ -25,8 +25,8 @@ namespace Game_Attemp_1
         public Player player;
         public Page1()
         {
-
-            player = new Player();
+            //MainWindow
+            player = ((MainWindow)App.Current.MainWindow).player;
 
             InitializeComponent();
 
@@ -117,6 +117,11 @@ namespace Game_Attemp_1
             player.PerformActivity("Speed", 1);
 
             RefreshStats();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            frame.Navigate(new Page2(frame));
         }
     }
 }

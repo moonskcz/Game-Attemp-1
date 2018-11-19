@@ -56,7 +56,7 @@ namespace Game_Attemp_1
             List<int> CombatForce = new List<int>();
             CombatForce.Add(0);
             CombatForce.Add(0);
-
+            
             List<int> tmp;
 
             foreach (ItemOffensive item in Equiped.Values)

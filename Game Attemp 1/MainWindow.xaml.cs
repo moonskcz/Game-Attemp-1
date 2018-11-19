@@ -20,9 +20,14 @@ namespace Game_Attemp_1
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public Player player;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            player = new Player();
 
             myFrame.Navigate(new Page1(myFrame));
 

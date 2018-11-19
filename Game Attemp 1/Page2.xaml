@@ -6,10 +6,31 @@
       xmlns:local="clr-namespace:Game_Attemp_1"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page2"
-      KeyDown="Page_KeyDown">
+      Title="Page2">
 
-    <Grid>
-        
+    <Grid Margin="0,0,-250,-95.4">
+        <Label x:Name="labul1" Content="Label" HorizontalAlignment="Left" Margin="318,92,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Health" Content="Label" HorizontalAlignment="Left" Margin="119,84,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Inteligence" Content="Label" HorizontalAlignment="Left" Margin="119,155,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Strenght" Content="Label" HorizontalAlignment="Left" Margin="119,219,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Speed" Content="Label" HorizontalAlignment="Left" Margin="119,270,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Perception" Content="Label" HorizontalAlignment="Left" Margin="119,343,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="Inventory" HorizontalAlignment="Left" Height="197" Margin="560,132,0,0" VerticalAlignment="Top" Width="189">
+        </ListBox>
+        <ListBox x:Name="Equiped" HorizontalAlignment="Left" Height="197" Margin="816,132,0,0" VerticalAlignment="Top" Width="178"/>
+        <Button Content="Equip" HorizontalAlignment="Left" Margin="616,387,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Unequip" HorizontalAlignment="Left" Margin="874,389,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <RepeatButton Content="Perform activity" Delay="200" Interval="200"  HorizontalAlignment="Left" Margin="199,281,0,0" VerticalAlignment="Top" Width="113" Click="RepeatButton_Click"/>
+        <Label Content="Health" HorizontalAlignment="Left" Margin="28,84,0,0" VerticalAlignment="Top"/>
+        <Label Content="Inteligence" HorizontalAlignment="Left" Margin="28,155,0,0" VerticalAlignment="Top"/>
+        <Label Content="Strenght" HorizontalAlignment="Left" Margin="28,219,0,0" VerticalAlignment="Top"/>
+        <Label Content="Speed" HorizontalAlignment="Left" Margin="28,270,0,0" VerticalAlignment="Top"/>
+        <Label Content="Perception" HorizontalAlignment="Left" Margin="28,343,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Money" Content="" HorizontalAlignment="Left" Margin="348,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Money" HorizontalAlignment="Left" Margin="292,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Attack" HorizontalAlignment="Left" Margin="382,219,0,0" VerticalAlignment="Top"/>
+        <Label Content="Defense" HorizontalAlignment="Left" Margin="382,281,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Attack" Content="" HorizontalAlignment="Left" Margin="452,219,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Defense" Content="" HorizontalAlignment="Left" Margin="452,281,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
