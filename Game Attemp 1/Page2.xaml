@@ -6,31 +6,79 @@
       xmlns:local="clr-namespace:Game_Attemp_1"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Page2">
+      Title="Page2"
+      KeyDown="Page_KeyDown_1">
 
     <Grid Margin="0,0,-250,-95.4">
-        <Label x:Name="labul1" Content="Label" HorizontalAlignment="Left" Margin="318,92,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Health" Content="Label" HorizontalAlignment="Left" Margin="119,84,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Inteligence" Content="Label" HorizontalAlignment="Left" Margin="119,155,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Strenght" Content="Label" HorizontalAlignment="Left" Margin="119,219,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Speed" Content="Label" HorizontalAlignment="Left" Margin="119,270,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Perception" Content="Label" HorizontalAlignment="Left" Margin="119,343,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="Inventory" HorizontalAlignment="Left" Height="197" Margin="560,132,0,0" VerticalAlignment="Top" Width="189">
+        <Label x:Name="labul1" Content="Label" HorizontalAlignment="Left" Margin="909,472,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Health" Content="Label" HorizontalAlignment="Left" Margin="398,495,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Inteligence" Content="Label" HorizontalAlignment="Left" Margin="268,464,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Strenght" Content="Label" HorizontalAlignment="Left" Margin="268,495,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Speed" Content="Label" HorizontalAlignment="Left" Margin="89,464,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Perception" Content="Label" HorizontalAlignment="Left" Margin="89,495,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="Inventory" HorizontalAlignment="Left" Height="197" Margin="872,197,0,0" VerticalAlignment="Top" Width="178">
         </ListBox>
-        <ListBox x:Name="Equiped" HorizontalAlignment="Left" Height="197" Margin="816,132,0,0" VerticalAlignment="Top" Width="178"/>
-        <Button Content="Equip" HorizontalAlignment="Left" Margin="616,387,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Unequip" HorizontalAlignment="Left" Margin="874,389,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <RepeatButton Content="Perform activity" Delay="200" Interval="200"  HorizontalAlignment="Left" Margin="199,281,0,0" VerticalAlignment="Top" Width="113" Click="RepeatButton_Click"/>
-        <Label Content="Health" HorizontalAlignment="Left" Margin="28,84,0,0" VerticalAlignment="Top"/>
-        <Label Content="Inteligence" HorizontalAlignment="Left" Margin="28,155,0,0" VerticalAlignment="Top"/>
-        <Label Content="Strenght" HorizontalAlignment="Left" Margin="28,219,0,0" VerticalAlignment="Top"/>
-        <Label Content="Speed" HorizontalAlignment="Left" Margin="28,270,0,0" VerticalAlignment="Top"/>
-        <Label Content="Perception" HorizontalAlignment="Left" Margin="28,343,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Money" Content="" HorizontalAlignment="Left" Margin="348,137,0,0" VerticalAlignment="Top"/>
-        <Label Content="Money" HorizontalAlignment="Left" Margin="292,137,0,0" VerticalAlignment="Top"/>
-        <Label Content="Attack" HorizontalAlignment="Left" Margin="382,219,0,0" VerticalAlignment="Top"/>
-        <Label Content="Defense" HorizontalAlignment="Left" Margin="382,281,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Attack" Content="" HorizontalAlignment="Left" Margin="452,219,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Defense" Content="" HorizontalAlignment="Left" Margin="452,281,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="Equiped" HorizontalAlignment="Left" Height="197" Margin="872,0,0,0" VerticalAlignment="Top" Width="178"/>
+        <Button Content="Equip" HorizontalAlignment="Left" Margin="872,399,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Unequip" HorizontalAlignment="Left" Margin="975,399,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Label Content="Health" HorizontalAlignment="Left" Margin="348,495,0,0" VerticalAlignment="Top"/>
+        <Label Content="Inteligence" HorizontalAlignment="Left" Margin="194,464,0,0" VerticalAlignment="Top"/>
+        <Label Content="Strenght" HorizontalAlignment="Left" Margin="207,495,0,0" VerticalAlignment="Top"/>
+        <Label Content="Speed" HorizontalAlignment="Left" Margin="28,464,0,0" VerticalAlignment="Top"/>
+        <Label Content="Perception" HorizontalAlignment="Left" Margin="18,495,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Money" Content="" HorizontalAlignment="Left" Margin="398,464,0,0" VerticalAlignment="Top"/>
+        <Label Content="Money" HorizontalAlignment="Left" Margin="346,464,0,0" VerticalAlignment="Top"/>
+        <Label Content="Attack" HorizontalAlignment="Left" Margin="549,464,0,0" VerticalAlignment="Top"/>
+        <Label Content="Defense" HorizontalAlignment="Left" Margin="539,495,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Attack" Content="" HorizontalAlignment="Left" Margin="597,464,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Defense" Content="" HorizontalAlignment="Left" Margin="597,495,0,0" VerticalAlignment="Top"/>
+        <Grid x:Name="GameGrid" HorizontalAlignment="Left" Height="459" VerticalAlignment="Top" Width="831">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Rectangle x:Name="PlayerObject" Grid.Column="4" Grid.Row="2" Fill="#F00" Stroke="Black"/>
+
+        </Grid>
     </Grid>
 </Page>

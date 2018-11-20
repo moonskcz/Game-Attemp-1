@@ -1,5 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Game_Attemp_1
 {
@@ -21,6 +26,8 @@ namespace Game_Attemp_1
             labul1.Content = player.Name;
 
             RefreshUI();
+
+            //TickMaster();
         }
 
         public Page2(Frame frame) : this()
@@ -76,6 +83,47 @@ namespace Game_Attemp_1
             }
         }
 
+        private void TickMaster ()
+        {
+            DispatcherTimer DT = new DispatcherTimer();
+            DT.Tick += new EventHandler(Tick);
+            DT.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            DT.Start();
+        }
+
+        private void Tick(object sender, EventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Left))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
+                PlayerObject.SetValue(Grid.ColumnProperty, i);
+            }
+            if (Keyboard.IsKeyDown(Key.Right))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
+                PlayerObject.SetValue(Grid.ColumnProperty, i);
+            }
+            if (Keyboard.IsKeyDown(Key.Up))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
+                PlayerObject.SetValue(Grid.RowProperty, i);
+            }
+            if (Keyboard.IsKeyDown(Key.Down))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
+                PlayerObject.SetValue(Grid.RowProperty, i);
+            }
+
+            if (Keyboard.IsKeyDown(Key.Left) || Keyboard.IsKeyDown(Key.Right) || Keyboard.IsKeyDown(Key.Up) || Keyboard.IsKeyDown(Key.Down))
+            {
+                player.PerformActivity("Speed", 1);
+                RefreshStats();
+
+                Thread.Sleep(100);
+            }
+            
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -84,6 +132,7 @@ namespace Game_Attemp_1
                 player.Equip(Inventory.SelectedItem.ToString());
                 RefreshInv();
                 RefreshCombatStats();
+
             }
 
         }
@@ -105,6 +154,38 @@ namespace Game_Attemp_1
             player.PerformActivity("Speed", 1);
 
             RefreshStats();
+        }
+
+        private void Page_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Left))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
+                PlayerObject.SetValue(Grid.ColumnProperty, i);
+            }
+            if (Keyboard.IsKeyDown(Key.Right))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
+                PlayerObject.SetValue(Grid.ColumnProperty, i);
+            }
+            if (Keyboard.IsKeyDown(Key.Up))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
+                PlayerObject.SetValue(Grid.RowProperty, i);
+            }
+            if (Keyboard.IsKeyDown(Key.Down))
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
+                PlayerObject.SetValue(Grid.RowProperty, i);
+            }
+
+            if (Keyboard.IsKeyDown(Key.Left) || Keyboard.IsKeyDown(Key.Right) || Keyboard.IsKeyDown(Key.Up) || Keyboard.IsKeyDown(Key.Down))
+            {
+                player.PerformActivity("Speed", 1);
+                RefreshStats();
+
+                Thread.Sleep(100);
+            }
         }
     }
 }
