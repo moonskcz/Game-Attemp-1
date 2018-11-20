@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game_Attemp_1
 {
-    class ItemOffensiveArmour : ItemOffensive
+    public class ItemOffensiveArmour : ItemOffensive
     {
 
         public int Defence;
@@ -14,9 +14,19 @@ namespace Game_Attemp_1
         public int FrostDefence;
 
 
-        public ItemOffensiveArmour (int value, int requiredLevel, string name, string flavourText, string zone) : base (value, requiredLevel, name, flavourText, zone)
+        public ItemOffensiveArmour (int value, int requiredLevel, string name, string flavourText, string zone, int defence, int chemDefence, int frostDefence) : base (value, requiredLevel, name, flavourText, zone)
         {
+            Defence = defence;
+            ChemicalDefence = chemDefence;
+            FrostDefence = frostDefence;
+        }
 
+        override public List<int> EvalOffense ()
+        {
+            List<int> ret = new List<int>();
+            ret.Add(0);
+            ret.Add(Defence);
+            return ret;
         }
 
     }
