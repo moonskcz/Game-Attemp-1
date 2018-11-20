@@ -58,6 +58,7 @@
     <Compile Include="ActivityDoer.cs" />
     <Compile Include="ItemInterfaceMain.cs" />
     <Compile Include="ItemOffensive.cs" />
+    <Compile Include="ItemOffensiveArmour.cs" />
     <Compile Include="ItemOffensiveMelee.cs" />
     <Compile Include="ItemOffensiveRanged.cs" />
     <Compile Include="Map.cs" />

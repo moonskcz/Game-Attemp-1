@@ -30,10 +30,10 @@ namespace Game_Attemp_1
             Properties.Add("Attack", 0);
             Properties.Add("Defence", 0);
 
-            AddToInv(new ItemOffensiveRanged(80, 1, "JoJos Friend", "sum flavour text", "LeftHand", 7, 5, 1, 3));
-            AddToInv(new ItemOffensiveRanged(80, 1, "JoJos Friends CLONE", "sum flavour text", "LeftHand", 7, 5, 1, 3));
-            AddToInv(new ItemOffensiveRanged(9999999, 1, "Chastity weapon", "would rather not describe", "Penis", 7, 5, 1, 3));
-            AddToInv(new ItemOffensiveMelee(40 , 4, "JoJos Other Friend", "sum flavour text", "RightHand", 1, 3, 5));
+            AddToInv(new ItemOffensiveRanged(80, 1, "JoJos Friend", "sum flavour text", "Weapon", 40, 7, 5, 1, 3, 1));
+            AddToInv(new ItemOffensiveRanged(80, 1, "JoJos Friends CLONE", "sum flavour text", "Weapon", 40, 7, 5, 1, 3, 1));
+            AddToInv(new ItemOffensiveRanged(9999999, 1, "Chastity weapon", "would rather not describe", "Weapon", 35, 7, 5, 1, 5, 3));
+            AddToInv(new ItemOffensiveMelee(40 , 4, "JoJos Other Friend", "sum flavour text", "Weapon", 85, 1, 3, 5));
 
             AddToInv(new ItemUtyl(15, 1, "Health potion", "A bitter piece of shit that somehow heals your wounds"));
 

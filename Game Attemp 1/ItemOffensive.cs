@@ -23,7 +23,7 @@ namespace Game_Attemp_1
 
         }
 
-        public List<int> EvalOffense ()
+        virtual public List<int> EvalOffense ()
         {
             List<int> ret = new List<int>(); //1st Offense 2nd Defence
             ret.Add(5);
