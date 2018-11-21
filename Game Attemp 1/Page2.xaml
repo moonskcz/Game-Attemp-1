@@ -32,7 +32,7 @@
         <Label Content="Defense" HorizontalAlignment="Left" Margin="539,495,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Attack" Content="" HorizontalAlignment="Left" Margin="597,464,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Defense" Content="" HorizontalAlignment="Left" Margin="597,495,0,0" VerticalAlignment="Top"/>
-        <Grid x:Name="GameGrid" HorizontalAlignment="Left" Height="445" VerticalAlignment="Top" Width="872" KeyDown="Page_KeyDown_1">
+        <Grid x:Name="GameGrid" HorizontalAlignment="Left" Height="445" VerticalAlignment="Top" Width="872">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
