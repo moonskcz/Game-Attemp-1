@@ -27,7 +27,16 @@ namespace Game_Attemp_1
 
             RefreshUI();
 
-            //TickMaster();
+            TickMaster();
+
+            /*
+             * Stažené soubory/maxresdefault.jpg
+             * 
+             * ImageBrush ib = new ImageBrush();
+ib.ImageSource = new BitmapImage(new Uri(@"sampleImages\berries.jpg", UriKind.Relative));
+mycanvas.Background = ib;
+             *
+             */
         }
 
         public Page2(Frame frame) : this()
@@ -93,6 +102,7 @@ namespace Game_Attemp_1
 
         private void Tick(object sender, EventArgs e)
         {
+
             if (Keyboard.IsKeyDown(Key.Left))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
@@ -158,7 +168,7 @@ namespace Game_Attemp_1
 
         private void Page_KeyDown_1(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.Left))
+            if (e.Key == Key.Left)
             {
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
                 PlayerObject.SetValue(Grid.ColumnProperty, i);
