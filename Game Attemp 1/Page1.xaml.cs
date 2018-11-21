@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Game_Attemp_1
@@ -11,6 +12,9 @@ namespace Game_Attemp_1
         private Frame frame;
 
         public Player player;
+
+        public static EventHandler SomethingHappened { get; internal set; }
+
         public Page1()
         {
             //MainWindow

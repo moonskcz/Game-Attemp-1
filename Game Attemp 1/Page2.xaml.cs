@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace Game_Attemp_1
@@ -27,14 +29,18 @@ namespace Game_Attemp_1
 
             RefreshUI();
 
-            TickMaster();
+            //TickMaster();
+
+            ImageBrush ib = new ImageBrush();
+            ib.ImageSource = new BitmapImage(new Uri(@"maxresdefault.jpg", UriKind.Relative));
+            kanvas.Background = ib;
 
             /*
              * Stažené soubory/maxresdefault.jpg
              * 
              * ImageBrush ib = new ImageBrush();
-ib.ImageSource = new BitmapImage(new Uri(@"sampleImages\berries.jpg", UriKind.Relative));
-mycanvas.Background = ib;
+ib.ImageSource = new BitmapImage(new Uri(@"Stažené soubory/maxresdefault.jpg", UriKind.Relative));
+kanvas.Background = ib;
              *
              */
         }
@@ -100,36 +106,59 @@ mycanvas.Background = ib;
             DT.Start();
         }
 
-        private void Tick(object sender, EventArgs e)
+        private void Tick (object sender, EventArgs e)
         {
+            if (MiniTick())
+            {
+                Thread.Sleep(100);
+            }
+        }
+
+        private bool MiniTick()
+        {
+            bool moved = false;
 
             if (Keyboard.IsKeyDown(Key.Left))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
                 PlayerObject.SetValue(Grid.ColumnProperty, i);
+                moved = true;
+
             }
             if (Keyboard.IsKeyDown(Key.Right))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
                 PlayerObject.SetValue(Grid.ColumnProperty, i);
+                moved = true;
+
+
             }
             if (Keyboard.IsKeyDown(Key.Up))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
                 PlayerObject.SetValue(Grid.RowProperty, i);
+                moved = true;
+
+
             }
             if (Keyboard.IsKeyDown(Key.Down))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
                 PlayerObject.SetValue(Grid.RowProperty, i);
+                moved = true;
+
+
             }
 
-            if (Keyboard.IsKeyDown(Key.Left) || Keyboard.IsKeyDown(Key.Right) || Keyboard.IsKeyDown(Key.Up) || Keyboard.IsKeyDown(Key.Down))
+            if (moved)
             {
                 player.PerformActivity("Speed", 1);
                 RefreshStats();
 
-                Thread.Sleep(100);
+                return true;
+            } else
+            {
+                return false;
             }
             
         }
@@ -196,6 +225,12 @@ mycanvas.Background = ib;
 
                 Thread.Sleep(100);
             }
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            MiniTick();
+
         }
     }
 }
