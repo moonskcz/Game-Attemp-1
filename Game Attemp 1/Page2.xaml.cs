@@ -41,6 +41,8 @@ namespace Game_Attemp_1
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
             App.Current.MainWindow.KeyUp += new System.Windows.Input.KeyEventHandler(Page_KeyUp);
 
+            MovementTimer();
+
 
         }
 
@@ -216,7 +218,7 @@ namespace Game_Attemp_1
             }
         }
 
-        private void Movement ()
+        private void Movement (object sender, EventArgs e)
         {
 
             if (moveLeft)
@@ -251,11 +253,10 @@ namespace Game_Attemp_1
 
         private void MovementTimer ()
         {
-            Timer loopTimer = new Timer();
-            loopTimer.Interval = 500;
-            loopTimer.Enabled = false;
-            loopTimer.Elapsed += loopTimerEvent;
-            loopTimer.AutoReset = true;
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(Movement);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            dispatcherTimer.Start();
         }
 
     }
