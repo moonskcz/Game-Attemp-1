@@ -15,6 +15,11 @@ namespace Game_Attemp_1
     /// </summary>
     public partial class Page2 : Page
     {
+        private bool moveLeft = false;
+        private bool moveRight = false;
+        private bool moveUp = false;
+        private bool moveDown = false;
+
         private Frame frame;
 
         public Player player;
@@ -34,7 +39,8 @@ namespace Game_Attemp_1
             kanvas.Background = ib;
 
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
-            
+            App.Current.MainWindow.KeyUp += new System.Windows.Input.KeyEventHandler(Page_KeyUp);
+
 
         }
 
@@ -168,12 +174,89 @@ namespace Game_Attemp_1
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
         {
+
+            if (Keyboard.IsKeyDown(Key.W))
+            {
+                moveUp = true;
+            }
+            if (Keyboard.IsKeyDown(Key.S))
+            {
+                moveDown = true;
+            }
+            if (Keyboard.IsKeyDown(Key.A))
+            {
+                moveLeft = true;
+            }
+            if (Keyboard.IsKeyDown(Key.D))
+            {
+                moveRight = true;
+            }
+
             MiniTick();
         }
 
-        private void Inventory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Page_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.W)
+            {
+                moveUp = false;
+            }
+
+            if (e.Key == Key.S)
+            {
+                moveDown = false;
+            }
+            if (e.Key == Key.A)
+            {
+                moveLeft = false;
+            }
+            if (e.Key == Key.D)
+            {
+                moveRight = false;
+            }
+        }
+
+        private void Movement ()
         {
 
+            if (moveLeft)
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
+                PlayerObject.SetValue(Grid.ColumnProperty, i);
+                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - 1);
+            }
+            if (moveRight)
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
+                PlayerObject.SetValue(Grid.ColumnProperty, i);
+                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + 1);
+
+            }
+            if (moveUp)
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
+                PlayerObject.SetValue(Grid.RowProperty, i);
+                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - 1);
+
+            }
+            if (moveDown)
+            {
+                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
+                PlayerObject.SetValue(Grid.RowProperty, i);
+                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + 1);
+
+            }
+
         }
+
+        private void MovementTimer ()
+        {
+            Timer loopTimer = new Timer();
+            loopTimer.Interval = 500;
+            loopTimer.Enabled = false;
+            loopTimer.Elapsed += loopTimerEvent;
+            loopTimer.AutoReset = true;
+        }
+
     }
 }
