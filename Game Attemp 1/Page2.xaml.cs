@@ -93,6 +93,7 @@ namespace Game_Attemp_1
 
         private bool MiniTick()
         {
+            Point p = Mouse.GetPosition(kanvas);
             bool moved = false;
 
             if (Keyboard.IsKeyDown(Key.Left))
@@ -100,25 +101,31 @@ namespace Game_Attemp_1
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
                 PlayerObject.SetValue(Grid.ColumnProperty, i);
                 moved = true;
-                Canvas.SetLeft(rectangul, 50);
+                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - 1);
             }
             if (Keyboard.IsKeyDown(Key.Right))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
                 PlayerObject.SetValue(Grid.ColumnProperty, i);
                 moved = true;
+                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + 1);
+
             }
             if (Keyboard.IsKeyDown(Key.Up))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
                 PlayerObject.SetValue(Grid.RowProperty, i);
                 moved = true;
+                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - 1);
+
             }
             if (Keyboard.IsKeyDown(Key.Down))
             {
                 int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
                 PlayerObject.SetValue(Grid.RowProperty, i);
                 moved = true;
+                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + 1);
+
             }
 
             if (moved)
