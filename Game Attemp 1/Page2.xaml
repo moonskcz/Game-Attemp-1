@@ -79,7 +79,9 @@
             </Grid.RowDefinitions>
 
             <Rectangle x:Name="PlayerObject" Grid.Column="4" Grid.Row="2" Fill="#F00" Stroke="Black"/>
-            <Canvas Panel.ZIndex="-2" x:Name="kanvas" HorizontalAlignment="Left" Height="445" Grid.RowSpan="15" VerticalAlignment="Top" Width="872" Grid.ColumnSpan="24" Margin="0,0,0,-0.2"/>
+            <Canvas Panel.ZIndex="-2" x:Name="kanvas" HorizontalAlignment="Left" Height="445" Grid.RowSpan="15" VerticalAlignment="Top" Width="872" Grid.ColumnSpan="24" Margin="0,0,0,-0.2">
+                <Rectangle x:Name="rectangul" Panel.ZIndex="5" Fill="#0f0" Width="50" Height="50"></Rectangle>
+            </Canvas>
 
         </Grid>
         <Rectangle Panel.ZIndex="-1" Fill="#ccc" HorizontalAlignment="Left" Height="100" Margin="0,445,0,0" Stroke="Black" VerticalAlignment="Top" Width="1050"/>

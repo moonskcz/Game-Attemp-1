@@ -100,6 +100,7 @@ namespace Game_Attemp_1
                 int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
                 PlayerObject.SetValue(Grid.ColumnProperty, i);
                 moved = true;
+                Canvas.SetLeft(rectangul, 50);
             }
             if (Keyboard.IsKeyDown(Key.Right))
             {
