@@ -246,5 +246,14 @@ namespace Game_Attemp_1
             dispatcherTimer.Start();
         }
 
+        private void SpawnItem ()
+        {
+            rectangul;
+            Rectangle rec = new RectangleGeometry();
+            kanvas.Children.Add(rec);
+            Canvas.SetLeft(rec, Canvas.GetLeft(rectangul));
+            Canvas.SetTop(rec, Canvas.GetTop(rectangul));
+        }
+
     }
 }
