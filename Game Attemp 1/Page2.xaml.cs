@@ -41,7 +41,7 @@ namespace Game_Attemp_1
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
             App.Current.MainWindow.KeyUp += new System.Windows.Input.KeyEventHandler(Page_KeyUp);
 
-            App.Current.MainWindow.MouseMove += new MouseEventHandler(mouseMove);
+            //App.Current.MainWindow.MouseMove += new MouseEventHandler(mouseMove);
 
             MovementTimer();
 
@@ -215,17 +215,16 @@ namespace Game_Attemp_1
             ypos.Content = Canvas.GetTop(rectangul);
             xpos.Content = Canvas.GetLeft(rectangul);
 
-            CheckColision(kanvas);
+            //CheckColision(kanvas);
         }
 
         private bool CheckColision (Canvas canvas)
         {
-            int i = 0;
-            foreach (UIElement child in canvas.Children)
-            {
-                MessageBox.Show(canvas.Children[i].ToString());
-                i++;
-            }
+            /*UIElementCollection UIC = from child in canvas.Children
+                                      where (num % 2) == 0
+                                      select num;
+
+            return false;*/
 
             return false;
         }
