@@ -215,6 +215,19 @@ namespace Game_Attemp_1
             ypos.Content = Canvas.GetTop(rectangul);
             xpos.Content = Canvas.GetLeft(rectangul);
 
+            CheckColision(kanvas);
+        }
+
+        private bool CheckColision (Canvas canvas)
+        {
+            int i = 0;
+            foreach (UIElement child in canvas.Children)
+            {
+                MessageBox.Show(canvas.Children[i].ToString());
+                i++;
+            }
+
+            return false;
         }
 
         private void mouseMove (object sender, MouseEventArgs e)
