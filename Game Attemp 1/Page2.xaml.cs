@@ -41,6 +41,8 @@ namespace Game_Attemp_1
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
             App.Current.MainWindow.KeyUp += new System.Windows.Input.KeyEventHandler(Page_KeyUp);
 
+            App.Current.MainWindow.MouseMove += new MouseEventHandler(mouseMove);
+
             MovementTimer();
 
 
@@ -98,57 +100,7 @@ namespace Game_Attemp_1
                 Equiped.Items.Add("");
             }
         }
-
-        private bool MiniTick()
-        {
-            Point p = Mouse.GetPosition(kanvas);
-            bool moved = false;
-
-            if (Keyboard.IsKeyDown(Key.Left))
-            {
-                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
-                PlayerObject.SetValue(Grid.ColumnProperty, i);
-                moved = true;
-                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - 1);
-            }
-            if (Keyboard.IsKeyDown(Key.Right))
-            {
-                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
-                PlayerObject.SetValue(Grid.ColumnProperty, i);
-                moved = true;
-                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + 1);
-
-            }
-            if (Keyboard.IsKeyDown(Key.Up))
-            {
-                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
-                PlayerObject.SetValue(Grid.RowProperty, i);
-                moved = true;
-                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - 1);
-
-            }
-            if (Keyboard.IsKeyDown(Key.Down))
-            {
-                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
-                PlayerObject.SetValue(Grid.RowProperty, i);
-                moved = true;
-                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + 1);
-
-            }
-
-            if (moved)
-            {
-                player.PerformActivity("Speed", 1);
-                RefreshStats();
-
-                return true;
-            } else
-            {
-                return false;
-            }
-            
-        }
-
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -193,8 +145,6 @@ namespace Game_Attemp_1
             {
                 moveRight = true;
             }
-
-            MiniTick();
         }
 
         private void Page_KeyUp(object sender, KeyEventArgs e)
@@ -203,7 +153,6 @@ namespace Game_Attemp_1
             {
                 moveUp = false;
             }
-
             if (e.Key == Key.S)
             {
                 moveDown = false;
@@ -223,32 +172,58 @@ namespace Game_Attemp_1
 
             if (moveLeft)
             {
-                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.ColumnProperty) - 1);
-                PlayerObject.SetValue(Grid.ColumnProperty, i);
-                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - 1);
+                int moveCoefficient = 2;
+                if (moveUp || moveDown)
+                {
+                    moveCoefficient = 1;
+                }
+                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - moveCoefficient);
             }
             if (moveRight)
             {
-                int i = ((int)PlayerObject.GetValue(Grid.ColumnProperty) + 1 > GameGrid.ColumnDefinitions.Count - 1 ? GameGrid.ColumnDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.ColumnProperty) + 1);
-                PlayerObject.SetValue(Grid.ColumnProperty, i);
-                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + 1);
+                int moveCoefficient = 2;
+                if (moveUp || moveDown)
+                {
+                    moveCoefficient = 1;
+                }
+                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + moveCoefficient);
 
             }
             if (moveUp)
             {
-                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) - 1 < 0 ? 0 : (int)PlayerObject.GetValue(Grid.RowProperty) - 1);
-                PlayerObject.SetValue(Grid.RowProperty, i);
-                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - 1);
+                int moveCoefficient = 2;
+                if (moveLeft || moveRight)
+                {
+                    moveCoefficient = 1;
+                }
+                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - moveCoefficient);
 
             }
             if (moveDown)
             {
-                int i = ((int)PlayerObject.GetValue(Grid.RowProperty) + 1 > GameGrid.RowDefinitions.Count - 1 ? GameGrid.RowDefinitions.Count - 1 : (int)PlayerObject.GetValue(Grid.RowProperty) + 1);
-                PlayerObject.SetValue(Grid.RowProperty, i);
-                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + 1);
+                int moveCoefficient = 2;
+                if (moveLeft || moveRight)
+                {
+                    moveCoefficient = 1;
+                }
+                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + moveCoefficient);
 
             }
 
+            Point pointToWindow = Mouse.GetPosition(this);
+
+            ypos.Content = Canvas.GetTop(rectangul);
+            xpos.Content = Canvas.GetLeft(rectangul);
+
+        }
+
+        private void mouseMove (object sender, MouseEventArgs e)
+        {
+
+            Point pointToWindow = Mouse.GetPosition(this);
+
+            //CursorImage.Margin = new Thickness(pointToWindow.X, pointToWindow.Y, this.Width - pointToWindow.X, this.Height - pointToWindow.Y);
+            
         }
 
         private void MovementTimer ()
