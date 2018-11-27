@@ -208,7 +208,11 @@ namespace Game_Attemp_1
                 {
                     moveCoefficient = 1;
                 }
-                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + moveCoefficient);
+                if (CheckColision(kanvas))
+                {
+                    Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + moveCoefficient);
+
+                }
 
             }
 
@@ -217,7 +221,7 @@ namespace Game_Attemp_1
             ypos.Content = Canvas.GetTop(rectangul);
             xpos.Content = Canvas.GetLeft(rectangul);
 
-            CheckColision(kanvas);
+            //CheckColision(kanvas);
         }
 
         private bool CheckColision (Canvas canvas)
@@ -247,13 +251,30 @@ namespace Game_Attemp_1
 
             int recWidth = (int)(rectangul.Width / 2);
             int recHeight = (int)(rectangul.Height / 2);
-            int recX = (int)Canvas.GetLeft(rectangul) - recWidth;
-            int recY = (int)Canvas.GetRight(rectangul) - recHeight;
+            int recX = (int)Canvas.GetLeft(rectangul) + recWidth;
+            int recY = (int)Canvas.GetTop(rectangul) + recHeight;
 
-            var result = from item in canvas.Children.OfType<UIElement>() where (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) > recX select item; 
+            var result = from item in canvas.Children.OfType<UIElement>() where (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) > recY select item; 
 
+            var betterResult = from item in result where (Canvas.GetLeft(item) + (item.RenderSize.Width / 2)) > recX select item;
 
-            return false;
+            foreach (UIElement el in betterResult)
+            {
+                if (el != rectangul)
+                {
+                    deb1.Content = Canvas.GetTop(el) + el.RenderSize.Height;
+                    deb2.Content = Canvas.GetTop(rectangul);
+                    if ((Canvas.GetTop(el) + el.RenderSize.Height) >= Canvas.GetTop(rectangul) || Canvas.GetTop(el) <= (Canvas.GetTop(rectangul) + recHeight * 2))
+                    {
+                        return true;
+                    } else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void mouseMove (object sender, MouseEventArgs e)
