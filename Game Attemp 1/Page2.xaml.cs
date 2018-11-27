@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -215,7 +217,7 @@ namespace Game_Attemp_1
             ypos.Content = Canvas.GetTop(rectangul);
             xpos.Content = Canvas.GetLeft(rectangul);
 
-            //CheckColision(kanvas);
+            CheckColision(kanvas);
         }
 
         private bool CheckColision (Canvas canvas)
@@ -225,6 +227,31 @@ namespace Game_Attemp_1
                                       select num;
 
             return false;*/
+            /*
+
+            foreach (UIElement child in canvas.Children)
+            {
+                if (rectangul.Height) {
+                    Canvas.GetTop(child);
+                }
+
+            }*/
+            /*
+            List<UIElement> UIE = new List<UIElement>();
+            UIE =
+                (from canvas.Children in canvas
+                where (num % 2) == 0
+                select num).ToList();
+            */
+            //Console.WriteLine(canvas.Children[0].RenderSize);
+
+            int recWidth = (int)(rectangul.Width / 2);
+            int recHeight = (int)(rectangul.Height / 2);
+            int recX = (int)Canvas.GetLeft(rectangul) - recWidth;
+            int recY = (int)Canvas.GetRight(rectangul) - recHeight;
+
+            var result = from item in canvas.Children.OfType<UIElement>() where (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) > recX select item; 
+
 
             return false;
         }
@@ -248,11 +275,13 @@ namespace Game_Attemp_1
 
         private void SpawnItem ()
         {
+            /*
             rectangul;
             Rectangle rec = new RectangleGeometry();
             kanvas.Children.Add(rec);
             Canvas.SetLeft(rec, Canvas.GetLeft(rectangul));
             Canvas.SetTop(rec, Canvas.GetTop(rectangul));
+            */
         }
 
     }
