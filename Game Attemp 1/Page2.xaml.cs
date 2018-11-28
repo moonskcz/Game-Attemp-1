@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Game_Attemp_1
@@ -147,6 +148,12 @@ namespace Game_Attemp_1
             {
                 moveRight = true;
             }
+
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                SpawnItem();
+            }
+
         }
 
         private void Page_KeyUp(object sender, KeyEventArgs e)
@@ -243,7 +250,7 @@ namespace Game_Attemp_1
             {
                 case "up":
 
-                    var resultUp = from item in canvas.Children.OfType<UIElement>() where Canvas.GetTop(item) + item.RenderSize.Height < recY + recHeight select item; 
+                    var resultUp = from item in canvas.Children.OfType<UIElement>() where Canvas.GetTop(item) + item.RenderSize.Height - 5 < recY + recHeight select item; 
 
                     foreach (UIElement el in resultUp)
                     {
@@ -252,17 +259,11 @@ namespace Game_Attemp_1
                             if ((Canvas.GetLeft(rectangul) + recWidth) > Canvas.GetLeft(el) && Canvas.GetLeft(rectangul) < (Canvas.GetLeft(el) + el.RenderSize.Width))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
                             {
                                 if ( (Canvas.GetTop(el) + el.RenderSize.Height) < Canvas.GetTop(rectangul))
-                                {
-                                    //return true;
-                                }
+                                {}
                                 else
                                 {
                                     return false;
                                 }
-                            }
-                            else
-                            {
-                                //return true;
                             }
                         }
                     }
@@ -271,7 +272,7 @@ namespace Game_Attemp_1
 
                 case "down":
 
-                    var resultDown = from item in canvas.Children.OfType<UIElement>() where Canvas.GetTop(item) > recY select item;
+                    var resultDown = from item in canvas.Children.OfType<UIElement>() where Canvas.GetTop(item) + 5 > recY select item;
 
                     foreach (UIElement el in resultDown)
                     {
@@ -280,17 +281,11 @@ namespace Game_Attemp_1
                             if ((Canvas.GetLeft(rectangul) + recWidth) > Canvas.GetLeft(el) && Canvas.GetLeft(rectangul) < (Canvas.GetLeft(el) + el.RenderSize.Width))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
                             {
                                 if (Canvas.GetTop(el) > (Canvas.GetTop(rectangul) + recHeight))
-                                {
-                                    //return true;
-                                }
+                                {}
                                 else
                                 {
                                     return false;
                                 }
-                            }
-                            else
-                            {
-                                //return true;
                             }
                         }
                     }
@@ -299,7 +294,7 @@ namespace Game_Attemp_1
 
                 case "left":
 
-                    var resultLeft = from item in canvas.Children.OfType<UIElement>() where Canvas.GetLeft(item) + item.RenderSize.Width - 5 <= recX select item;
+                    var resultLeft = from item in canvas.Children.OfType<UIElement>() where Canvas.GetLeft(item) + item.RenderSize.Width - 5 < recX select item;
 
                     foreach (UIElement el in resultLeft)
                     {
@@ -308,17 +303,11 @@ namespace Game_Attemp_1
                             if ((Canvas.GetTop(rectangul) + recHeight) > Canvas.GetTop(el) && Canvas.GetTop(rectangul) < (Canvas.GetTop(el) + el.RenderSize.Height))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
                             {
                                 if ((Canvas.GetLeft(el) + el.RenderSize.Width) < Canvas.GetLeft(rectangul))
-                                {
-                                    //return true;
-                                }
+                                {}
                                 else
                                 {
                                     return false;
                                 }
-                            }
-                            else
-                            {
-                                //return true;
                             }
                         }
                     }
@@ -336,17 +325,11 @@ namespace Game_Attemp_1
                             if ((Canvas.GetTop(rectangul) + recHeight) > Canvas.GetTop(el) && Canvas.GetTop(rectangul) < (Canvas.GetTop(el) + el.RenderSize.Height))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
                             {
                                 if (Canvas.GetLeft(el) > Canvas.GetLeft(rectangul) + recWidth)
-                                {
-                                    //return true;
-                                }
+                                {}
                                 else
                                 {
                                     return false;
                                 }
-                            }
-                            else
-                            {
-                                //return true;
                             }
                         }
                     }
@@ -357,13 +340,6 @@ namespace Game_Attemp_1
                     return true;
             }
 
-            
-
-            //var result = from item in canvas.Children.OfType<UIElement>() where (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) > recY - 100 && (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) < recY + 100 select item; 
-
-            //var betterResult = from item in result where (Canvas.GetLeft(item) + (item.RenderSize.Width / 2)) > recX - 100 && (Canvas.GetLeft(item) + (item.RenderSize.Width / 2)) < recX + 100 select item;
-
-            
         }
 
         private void mouseMove (object sender, MouseEventArgs e)
@@ -385,13 +361,21 @@ namespace Game_Attemp_1
 
         private void SpawnItem ()
         {
-            /*
-            rectangul;
-            Rectangle rec = new RectangleGeometry();
-            kanvas.Children.Add(rec);
-            Canvas.SetLeft(rec, Canvas.GetLeft(rectangul));
-            Canvas.SetTop(rec, Canvas.GetTop(rectangul));
-            */
+            
+            Rectangle r = new Rectangle();
+            
+            r.Width = 20;
+            r.Height = 20;
+            
+            r.Fill = Brushes.Black;
+
+            r.Name = "kkk";
+            
+            Canvas.SetTop(r, Canvas.GetTop(rectangul));
+            Canvas.SetLeft(r, Canvas.GetLeft(rectangul));
+            
+            kanvas.Children.Add(r);
+
         }
 
     }
