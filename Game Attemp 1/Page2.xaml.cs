@@ -37,7 +37,7 @@ namespace Game_Attemp_1
             RefreshUI();
 
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"maxresdefault.jpg", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(@"no-work.jpg", UriKind.Relative));
             kanvas.Background = ib;
 
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
@@ -179,7 +179,9 @@ namespace Game_Attemp_1
                 {
                     moveCoefficient = 1;
                 }
-                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - moveCoefficient);
+                if (CheckColision(kanvas, "left")) {
+                    Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) - moveCoefficient);
+                }
             }
             if (moveRight)
             {
@@ -188,7 +190,10 @@ namespace Game_Attemp_1
                 {
                     moveCoefficient = 1;
                 }
-                Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + moveCoefficient);
+                if (CheckColision(kanvas, "right"))
+                {
+                    Canvas.SetLeft(rectangul, Canvas.GetLeft(rectangul) + moveCoefficient);
+                }
 
             }
             if (moveUp)
@@ -198,7 +203,10 @@ namespace Game_Attemp_1
                 {
                     moveCoefficient = 1;
                 }
-                Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - moveCoefficient);
+                if (CheckColision(kanvas, "up"))
+                {
+                    Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) - moveCoefficient);
+                }
 
             }
             if (moveDown)
@@ -208,10 +216,9 @@ namespace Game_Attemp_1
                 {
                     moveCoefficient = 1;
                 }
-                if (CheckColision(kanvas))
+                if (CheckColision(kanvas, "down"))
                 {
                     Canvas.SetTop(rectangul, Canvas.GetTop(rectangul) + moveCoefficient);
-
                 }
 
             }
@@ -224,57 +231,139 @@ namespace Game_Attemp_1
             //CheckColision(kanvas);
         }
 
-        private bool CheckColision (Canvas canvas)
+        private bool CheckColision (Canvas canvas, string direction)
         {
-            /*UIElementCollection UIC = from child in canvas.Children
-                                      where (num % 2) == 0
-                                      select num;
 
-            return false;*/
-            /*
+            int recWidth = (int)(rectangul.Width);
+            int recHeight = (int)(rectangul.Height);
+            int recX = (int)Canvas.GetLeft(rectangul);
+            int recY = (int)Canvas.GetTop(rectangul);
 
-            foreach (UIElement child in canvas.Children)
+            switch (direction)
             {
-                if (rectangul.Height) {
-                    Canvas.GetTop(child);
-                }
+                case "up":
 
-            }*/
-            /*
-            List<UIElement> UIE = new List<UIElement>();
-            UIE =
-                (from canvas.Children in canvas
-                where (num % 2) == 0
-                select num).ToList();
-            */
-            //Console.WriteLine(canvas.Children[0].RenderSize);
+                    var resultUp = from item in canvas.Children.OfType<UIElement>() where Canvas.GetTop(item) + item.RenderSize.Height < recY + recHeight select item; 
 
-            int recWidth = (int)(rectangul.Width / 2);
-            int recHeight = (int)(rectangul.Height / 2);
-            int recX = (int)Canvas.GetLeft(rectangul) + recWidth;
-            int recY = (int)Canvas.GetTop(rectangul) + recHeight;
-
-            var result = from item in canvas.Children.OfType<UIElement>() where (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) > recY select item; 
-
-            var betterResult = from item in result where (Canvas.GetLeft(item) + (item.RenderSize.Width / 2)) > recX select item;
-
-            foreach (UIElement el in betterResult)
-            {
-                if (el != rectangul)
-                {
-                    deb1.Content = Canvas.GetTop(el) + el.RenderSize.Height;
-                    deb2.Content = Canvas.GetTop(rectangul);
-                    if ((Canvas.GetTop(el) + el.RenderSize.Height) >= Canvas.GetTop(rectangul) || Canvas.GetTop(el) <= (Canvas.GetTop(rectangul) + recHeight * 2))
+                    foreach (UIElement el in resultUp)
                     {
-                        return true;
-                    } else
-                    {
-                        return false;
+                        if (el != rectangul)
+                        {
+                            if ((Canvas.GetLeft(rectangul) + recWidth) > Canvas.GetLeft(el) && Canvas.GetLeft(rectangul) < (Canvas.GetLeft(el) + el.RenderSize.Width))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
+                            {
+                                if ( (Canvas.GetTop(el) + el.RenderSize.Height) < Canvas.GetTop(rectangul))
+                                {
+                                    //return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                //return true;
+                            }
+                        }
                     }
-                }
+
+                    return true;
+
+                case "down":
+
+                    var resultDown = from item in canvas.Children.OfType<UIElement>() where Canvas.GetTop(item) > recY select item;
+
+                    foreach (UIElement el in resultDown)
+                    {
+                        if (el != rectangul)
+                        {
+                            if ((Canvas.GetLeft(rectangul) + recWidth) > Canvas.GetLeft(el) && Canvas.GetLeft(rectangul) < (Canvas.GetLeft(el) + el.RenderSize.Width))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
+                            {
+                                if (Canvas.GetTop(el) > (Canvas.GetTop(rectangul) + recHeight))
+                                {
+                                    //return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                //return true;
+                            }
+                        }
+                    }
+
+                    return true;
+
+                case "left":
+
+                    var resultLeft = from item in canvas.Children.OfType<UIElement>() where Canvas.GetLeft(item) + item.RenderSize.Width - 5 <= recX select item;
+
+                    foreach (UIElement el in resultLeft)
+                    {
+                        if (el != rectangul)
+                        {
+                            if ((Canvas.GetTop(rectangul) + recHeight) > Canvas.GetTop(el) && Canvas.GetTop(rectangul) < (Canvas.GetTop(el) + el.RenderSize.Height))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
+                            {
+                                if ((Canvas.GetLeft(el) + el.RenderSize.Width) < Canvas.GetLeft(rectangul))
+                                {
+                                    //return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                //return true;
+                            }
+                        }
+                    }
+
+                    return true;
+
+                case "right":
+
+                    var resultRight = from item in canvas.Children.OfType<UIElement>() where Canvas.GetLeft(item) + 5 > recX + recWidth select item;
+
+                    foreach (UIElement el in resultRight)
+                    {
+                        if (el != rectangul)
+                        {
+                            if ((Canvas.GetTop(rectangul) + recHeight) > Canvas.GetTop(el) && Canvas.GetTop(rectangul) < (Canvas.GetTop(el) + el.RenderSize.Height))// && (Canvas.GetLeft(el) + el.RenderSize.Width) > Canvas.GetLeft(rectangul))) // (Canvas.GetTop(el) + el.RenderSize.Height) <= Canvas.GetTop(rectangul) || 
+                            {
+                                if (Canvas.GetLeft(el) > Canvas.GetLeft(rectangul) + recWidth)
+                                {
+                                    //return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                //return true;
+                            }
+                        }
+                    }
+
+                    return true;
+
+                default:
+                    return true;
             }
 
-            return true;
+            
+
+            //var result = from item in canvas.Children.OfType<UIElement>() where (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) > recY - 100 && (Canvas.GetTop(item) + (item.RenderSize.Height / 2)) < recY + 100 select item; 
+
+            //var betterResult = from item in result where (Canvas.GetLeft(item) + (item.RenderSize.Width / 2)) > recX - 100 && (Canvas.GetLeft(item) + (item.RenderSize.Width / 2)) < recX + 100 select item;
+
+            
         }
 
         private void mouseMove (object sender, MouseEventArgs e)
