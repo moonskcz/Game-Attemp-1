@@ -29,8 +29,7 @@ namespace Game_Attemp_1
 
             player = new Player();
 
-            myFrame.Navigate(new Page1(myFrame));
-
+            myFrame.Navigate(new Page2(myFrame));
         }
 
 

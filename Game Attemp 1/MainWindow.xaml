@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game_Attemp_1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="1100">
+        Title="MainWindow">
     <Grid>
-        <Frame x:Name="myFrame" Margin="0,0,-252.4,-172"></Frame>
+        <Frame x:Name="myFrame" Margin="0,0,-252.4,-172" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>
