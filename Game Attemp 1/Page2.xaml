@@ -86,6 +86,7 @@
             <Rectangle x:Name="rectangul" Panel.ZIndex="5" Fill="#0f0" Width="50" Height="50" Canvas.Left="544" Canvas.Top="304"></Rectangle>
             <Rectangle Fill="#00f" Height="100" Canvas.Left="544" Canvas.Top="179" Width="100"/>
             <Rectangle Fill="#00f" Height="100" Canvas.Left="344" Canvas.Top="200" Width="100"/>
+            <Rectangle Fill="#00f" Height="53" Canvas.Left="381" Canvas.Top="56" Width="384"/>
         </Canvas>
         <Rectangle Panel.ZIndex="-1" Fill="#ccc" HorizontalAlignment="Left" Height="100" Margin="0,445,0,0" Stroke="Black" VerticalAlignment="Top" Width="1050"/>
         <Rectangle Panel.ZIndex="-1" Fill="#ccc" HorizontalAlignment="Left" Height="445" Margin="872,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="178"/>
