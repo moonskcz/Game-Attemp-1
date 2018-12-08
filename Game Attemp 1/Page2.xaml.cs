@@ -44,10 +44,12 @@ namespace Game_Attemp_1
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
             App.Current.MainWindow.KeyUp += new System.Windows.Input.KeyEventHandler(Page_KeyUp);
 
+            App.Current.MainWindow.MouseDown += new System.Windows.Input.MouseButtonEventHandler(Shoot);
+
+
             //App.Current.MainWindow.MouseMove += new MouseEventHandler(mouseMove);
 
             MovementTimer();
-
 
         }
 
@@ -230,12 +232,11 @@ namespace Game_Attemp_1
 
             }
 
-            Point pointToWindow = Mouse.GetPosition(this);
+            /*Point pointToWindow = Mouse.GetPosition(this);
 
             ypos.Content = Canvas.GetTop(rectangul);
             xpos.Content = Canvas.GetLeft(rectangul);
-
-            //CheckColision(kanvas);
+            */
         }
 
         private bool CheckColision (Canvas canvas, string direction)
@@ -347,8 +348,6 @@ namespace Game_Attemp_1
 
             Point pointToWindow = Mouse.GetPosition(this);
 
-            //CursorImage.Margin = new Thickness(pointToWindow.X, pointToWindow.Y, this.Width - pointToWindow.X, this.Height - pointToWindow.Y);
-            
         }
 
         private void MovementTimer ()
@@ -378,5 +377,60 @@ namespace Game_Attemp_1
 
         }
 
+        private Dictionary<string ,int> GetPlayerPosData ()
+        {
+            Dictionary<string, int> ret = new Dictionary<string, int>();
+
+            ret.Add("top", (int)Canvas.GetTop(rectangul));
+            ret.Add("left", (int)Canvas.GetLeft(rectangul));
+            ret.Add("right", (int)Canvas.GetRight(rectangul));
+            ret.Add("bottom", (int)Canvas.GetBottom(rectangul));
+            ret.Add("width", (int)rectangul.Width);
+            ret.Add("height", (int)rectangul.Height);
+
+            return ret;
+
+        }
+        private void Shoot (object sender, MouseButtonEventArgs e)
+        {
+            Point pointToWindow = Mouse.GetPosition(this);
+            Dictionary<string, int> plrData = GetPlayerPosData();
+
+            int mouseX = (int)pointToWindow.X;
+            int mouseY = (int)pointToWindow.Y;
+            int plrX = plrData["left"];
+            int plrY = plrData["top"];
+
+            /*if (mouseX < plrX)
+            {
+                plrX = plrX - mouseX;
+                mouseX = 0;
+            } else if (mouseX > plrX)
+            {
+                mouseX = mouseX - plrX;
+                plrX = 0;
+            }
+
+            if (mouseY < plrY)
+            {
+                plrY = plrY - mouseY;
+                mouseY = 0;
+            } else if (mouseY > plrY)
+            {
+                mouseY = mouseY - plrY;
+                plrY = 0;
+            }*/
+
+            int mouseToPlr = (int)Math.Sqrt(plrX * plrX + plrY * plrY);
+
+            double ratio = (double)plrY / mouseToPlr;
+
+            double radians = Math.Asin(ratio);
+
+            double angle = (180 / Math.PI) * radians;
+
+            int pop = 1;
+
+        }
     }
 }
