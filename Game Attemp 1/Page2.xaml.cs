@@ -421,7 +421,29 @@ namespace Game_Attemp_1
                 plrY = 0;
             }*/
 
-            int mouseToPlr = (int)Math.Sqrt(plrX * plrX + plrY * plrY);
+            if (mouseX < plrX)
+            {
+                plrX = plrX - mouseX;
+                mouseX = plrX;
+                plrX = 0;
+            } else if (mouseX > plrX)
+            {
+                mouseX = mouseX - plrX;
+                plrX = 0;
+            }
+
+            if (mouseY < plrY)
+            {
+                plrY = plrY - mouseY;
+                mouseY = 0;
+            } else if (mouseY > plrY)
+            {
+                mouseY = mouseY - plrY;
+                plrY = mouseY;
+                mouseY = 0;
+            }
+
+            int mouseToPlr = (int)Math.Sqrt(mouseX * mouseX + plrY * plrY);
 
             double ratio = (double)plrY / mouseToPlr;
 
