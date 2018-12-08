@@ -23,6 +23,8 @@ namespace Game_Attemp_1
         private bool moveUp = false;
         private bool moveDown = false;
 
+        public List<Line> Shots = new List<Line>();
+
         private Frame frame;
 
         public Player player;
@@ -50,6 +52,8 @@ namespace Game_Attemp_1
             //App.Current.MainWindow.MouseMove += new MouseEventHandler(mouseMove);
 
             MovementTimer();
+
+            shotsDissapieranceTimer();
 
         }
 
@@ -401,58 +405,46 @@ namespace Game_Attemp_1
             int plrX = plrData["left"];
             int plrY = plrData["top"];
 
-            /*if (mouseX < plrX)
+            Line line = new Line();
+            line.Stroke = Brushes.Yellow;
+
+            line.X1 = plrX + plrData["width"] / 2;
+            line.X2 = mouseX;
+            line.Y1 = plrY + plrData["height"] / 2;
+            line.Y2 = mouseY;
+
+            line.StrokeThickness = 2;
+            kanvas.Children.Add(line);
+            Shots.Add(line);
+
+        }
+
+        private void shotsDissapieranceTimer ()
+        {
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(DissapearShots);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 15);
+            dispatcherTimer.Start();
+        }
+
+        private void DissapearShots (object sender, EventArgs e)
+        {
+            List<Line> tmp = new List<Line>();
+            foreach (Line line in Shots)
             {
-                plrX = plrX - mouseX;
-                mouseX = 0;
-            } else if (mouseX > plrX)
-            {
-                mouseX = mouseX - plrX;
-                plrX = 0;
+                line.Opacity = line.Opacity - 0.03;
+                if (line.Opacity <= 0)
+                {
+                    tmp.Add(line);
+                }
             }
 
-            if (mouseY < plrY)
+            foreach (Line line in tmp)
             {
-                plrY = plrY - mouseY;
-                mouseY = 0;
-            } else if (mouseY > plrY)
-            {
-                mouseY = mouseY - plrY;
-                plrY = 0;
-            }*/
-
-            if (mouseX < plrX)
-            {
-                plrX = plrX - mouseX;
-                mouseX = plrX;
-                plrX = 0;
-            } else if (mouseX > plrX)
-            {
-                mouseX = mouseX - plrX;
-                plrX = 0;
+                kanvas.Children.Remove(line);
+                Shots.Remove(line);
             }
-
-            if (mouseY < plrY)
-            {
-                plrY = plrY - mouseY;
-                mouseY = 0;
-            } else if (mouseY > plrY)
-            {
-                mouseY = mouseY - plrY;
-                plrY = mouseY;
-                mouseY = 0;
-            }
-
-            int mouseToPlr = (int)Math.Sqrt(mouseX * mouseX + plrY * plrY);
-
-            double ratio = (double)plrY / mouseToPlr;
-
-            double radians = Math.Asin(ratio);
-
-            double angle = (180 / Math.PI) * radians;
-
-            int pop = 1;
-
+            tmp = null;
         }
     }
 }
