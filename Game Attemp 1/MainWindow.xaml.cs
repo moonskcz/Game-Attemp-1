@@ -32,6 +32,11 @@ namespace Game_Attemp_1
             myFrame.Navigate(new Page2(myFrame));
         }
 
+        public void ChangePlayerLocation (Page page)
+        {
+
+        }
+
 
     }
 }
