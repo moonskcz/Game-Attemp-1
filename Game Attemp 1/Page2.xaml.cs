@@ -23,6 +23,8 @@ namespace Game_Attemp_1
         private bool moveUp = false;
         private bool moveDown = false;
 
+        private Dictionary<UIElement ,ENM> ENMs = new Dictionary<UIElement, ENM>();
+
         public List<Line> Shots = new List<Line>();
 
         private Frame frame;
@@ -40,7 +42,7 @@ namespace Game_Attemp_1
             RefreshUI();
 
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"no-work.jpg", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(@"1.png", UriKind.Relative));
             kanvas.Background = ib;
 
             App.Current.MainWindow.KeyDown += new System.Windows.Input.KeyEventHandler(Page_KeyDown);
@@ -48,12 +50,19 @@ namespace Game_Attemp_1
 
             App.Current.MainWindow.MouseDown += new System.Windows.Input.MouseButtonEventHandler(Shoot);
 
-
-            //App.Current.MainWindow.MouseMove += new MouseEventHandler(mouseMove);
-
             MovementTimer();
 
             shotsDissapieranceTimer();
+
+            List<ENM> tmp = new List<ENM>();
+            tmp.Add(new ENM("enm name", 300, 1, 0, 0, 0));
+            tmp.Add(new ENM("enm name", 10, 1, 0, 0, 0));
+            tmp.Add(new ENM("enm name", 50, 1, 0, 0, 0));
+            tmp.Add(new ENM("enm name", 75, 1, 0, 0, 0));
+            tmp.Add(new ENM("enm name", 100, 1, 0, 0, 0));
+
+            SetENMFromCanvas(ENMKanvas);
+            SetENMDict(tmp);
 
         }
 
@@ -395,6 +404,31 @@ namespace Game_Attemp_1
             return ret;
 
         }
+
+        private void SetENMFromCanvas (Canvas canvas)
+        {
+
+            foreach (UIElement child in canvas.Children)
+            {
+                ENMs.Add(child, null);
+            }
+
+        }
+
+        private bool SetENMDict (List<ENM> enml)
+        {
+
+            if (enml.Count == ENMs.Values.Count)
+            {
+                for (int x = 0; x < enml.Count; x++)
+                {
+                    ENMs[ENMs.Keys.ElementAt(x)] = enml[x];
+                }
+                return true;
+            } else return false;
+
+        }
+
         private void Shoot (object sender, MouseButtonEventArgs e)
         {
             Point pointToWindow = Mouse.GetPosition(this);
@@ -414,9 +448,35 @@ namespace Game_Attemp_1
             line.Y2 = mouseY;
 
             line.StrokeThickness = 2;
-            kanvas.Children.Add(line);
+            ShotKanvas.Children.Add(line);
             Shots.Add(line);
 
+            CheckShotHit(mouseX, mouseY, 50);
+
+        }
+
+        private void CheckShotHit (int x, int y, int atPower)
+        {
+            var res = from item in ENMs where (Canvas.GetLeft(item.Key) < x && (Canvas.GetLeft(item.Key) + item.Key.RenderSize.Width) > x ) && (Canvas.GetTop(item.Key) < y && (Canvas.GetTop(item.Key) + item.Key.RenderSize.Height) > y) select item;
+
+            foreach (KeyValuePair<UIElement, ENM> item in res )
+            {
+                item.Value.Health = item.Value.Health - atPower;
+            }
+
+            checkENMHealth(ENMs);
+
+        }
+
+        private void checkENMHealth (Dictionary<UIElement, ENM> enms)
+        {
+            foreach (UIElement el in enms.Keys)
+            {
+                if (enms[el].Health <= 0)
+                {
+                    el.Visibility = Visibility.Hidden;
+                }
+            }
         }
 
         private void shotsDissapieranceTimer ()
